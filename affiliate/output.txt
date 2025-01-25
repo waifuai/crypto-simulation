@@ -1,0 +1,83 @@
+$ python main.py
+2025-01-18 09:20:32,648 - INFO - Running simulation with 100 steps, 5 tokens, 5 affiliates.
+2025-01-18 09:20:32,648 - INFO - Running on CPU/GPU.
+2025-01-18 09:20:32,648 - INFO - Token Token_0 created with initial supply 10000 and price 1.0
+2025-01-18 09:20:32,648 - INFO - Token Token_1 created with initial supply 10000 and price 1.0
+2025-01-18 09:20:32,648 - INFO - Token Token_2 created with initial supply 10000 and price 1.0
+2025-01-18 09:20:32,648 - INFO - Token Token_3 created with initial supply 10000 and price 1.0
+2025-01-18 09:20:32,648 - INFO - Token Token_4 created with initial supply 10000 and price 1.0
+2025-01-18 09:20:32,648 - INFO - Affiliate 0 created with initial commission rate 0.10. Whale status: True
+2025-01-18 09:20:32,648 - INFO - Affiliate 1 created with initial commission rate 0.10. Whale status: False
+2025-01-18 09:20:32,648 - INFO - Affiliate 2 created with initial commission rate 0.10. Whale status: False
+2025-01-18 09:20:32,648 - INFO - Affiliate 3 created with initial commission rate 0.10. Whale status: False
+2025-01-18 09:20:32,648 - INFO - Affiliate 4 created with initial commission rate 0.10. Whale status: False
+2025-01-18 09:20:32,648 - INFO - Simulation Started
+2025-01-18 09:20:32,664 - INFO - Token Token_0 changed bonding curve to exponential_bonding_curve
+2025-01-18 09:20:32,665 - INFO - Token Token_0 changed bonding curve parameters for exponential_bonding_curve
+2025-01-18 09:20:32,665 - INFO - Token Token_1 changed bonding curve to exponential_bonding_curve
+2025-01-18 09:20:32,665 - INFO - Token Token_1 changed bonding curve parameters for exponential_bonding_curve
+2025-01-18 09:20:32,665 - INFO - Token Token_2 changed bonding curve to exponential_bonding_curve
+2025-01-18 09:20:32,666 - INFO - Token Token_2 changed bonding curve parameters for exponential_bonding_curve
+2025-01-18 09:20:32,666 - INFO - Token Token_3 changed bonding curve to exponential_bonding_curve
+2025-01-18 09:20:32,666 - INFO - Token Token_3 changed bonding curve parameters for exponential_bonding_curve
+2025-01-18 09:20:32,666 - INFO - Token Token_4 changed bonding curve to exponential_bonding_curve
+2025-01-18 09:20:32,666 - INFO - Token Token_4 changed bonding curve parameters for exponential_bonding_curve
+2025-01-18 09:20:32,668 - INFO - Affiliate 0 commission rate increased to 0.1005
+2025-01-18 09:20:32,668 - INFO - Affiliate 0 commission rate increased to 0.1010
+2025-01-18 09:20:32,678 - INFO - Affiliate 0 commission rate increased to 0.1015
+2025-01-18 09:20:32,678 - INFO - Affiliate 0 commission rate increased to 0.1020
+2025-01-18 09:20:32,693 - INFO - Affiliate 0 commission rate increased to 0.1025
+2025-01-18 09:20:32,702 - INFO - Affiliate 0 commission rate increased to 0.1030
+2025-01-18 09:20:32,707 - INFO - Affiliate 0 commission rate increased to 0.1035
+2025-01-18 09:20:32,717 - INFO - Affiliate 0 commission rate increased to 0.1040
+2025-01-18 09:20:32,727 - INFO - Affiliate 0 commission rate increased to 0.1045
+2025-01-18 09:20:32,737 - INFO - Simulation Completed in: 0.09 seconds
+
+--- Token Summary ---
+
+Token: Token_0
+  Final Price: 11.76
+  Final Supply: 10469.41
+  Final Bonding Curve: <lambda>
+
+Token: Token_1
+  Final Price: 64.64
+  Final Supply: 10218.65
+  Final Bonding Curve: <lambda>
+
+Token: Token_2
+  Final Price: 1611.21
+  Final Supply: 10041.42
+  Final Bonding Curve: <lambda>
+
+Token: Token_3
+  Final Price: 11.61
+  Final Supply: 10113.29
+  Final Bonding Curve: <lambda>
+
+Token: Token_4
+  Final Price: 1187.03
+  Final Supply: 10071.97
+  Final Bonding Curve: <lambda>
+
+--- Affiliate Summary ---
+
+Affiliate: 0
+  Final Base Currency: 18079060.00
+  Final Commission Rate: 0.1045
+
+Affiliate: 1
+  Final Base Currency: 9637548.00
+  Final Commission Rate: 0.1000
+
+Affiliate: 2
+  Final Base Currency: 14704532.00
+  Final Commission Rate: 0.1000
+
+Affiliate: 3
+  Final Base Currency: 12931691.00
+  Final Commission Rate: 0.1000
+
+Affiliate: 4
+  Final Base Currency: 7514015.00
+  Final Commission Rate: 0.1000

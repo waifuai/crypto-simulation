@@ -1,0 +1,18 @@
+$ python main.py
+Running simulation for: Strategy_1
+  Strategy Details: {'type': 'lottery', 'percentage': 0.05, 'vesting': 'dynamic_activity', 'vesting_periods': 12, 'criteria': 'holdings', 'winners_fraction': 0.1, 'price_threshold': 0.015, 'activity_threshold': 70, 'name': 'Strategy_1'}
+Running simulation for: Strategy_2
+  Strategy Details: {'type': 'lottery', 'percentage': 0.1, 'vesting': 'dynamic_activity', 'vesting_periods': 24, 'criteria': 'activity', 'winners_fraction': 0.02, 'price_threshold': 0.015, 'activity_threshold': 30, 'name': 'Strategy_2'}
+Running simulation for: Strategy_3
+  Strategy Details: {'type': 'lottery', 'percentage': 0.1, 'vesting': 'dynamic_activity', 'vesting_periods': 3, 'criteria': 'holdings', 'winners_fraction': 0.01, 'price_threshold': 0.02, 'activity_threshold': 50, 'name': 'Strategy_3'}
+Running simulation for: Strategy_4
+  Strategy Details: {'type': 'lottery', 'percentage': 0.1, 'vesting': 'dynamic_activity', 'vesting_periods': 24, 'criteria': 'holdings', 'winners_fraction': 0.05, 'price_threshold': 0.02, 'activity_threshold': 90, 'name': 'Strategy_4'}
+Running simulation for: Strategy_5
+  Strategy Details: {'type': 'lottery', 'percentage': 0.05, 'vesting': 'dynamic_activity', 'vesting_periods': 12, 'criteria': 'holdings', 'winners_fraction': 0.1, 'price_threshold': 0.03, 'activity_threshold': 30, 'name': 'Strategy_5'}
+Simulation took 0.36 seconds
+
+Best Strategy (Highest Final Price): Strategy_4
+  Final Price: $0.1013
+  Final Supply: 994960117.74
+  Strategy Details: {'type': 'lottery', 'percentage': 0.1, 'vesting': 'dynamic_activity', 'vesting_periods': 24, 'criteria': 'holdings', 'winners_fraction': 0.05, 'price_threshold': 0.02, 'activity_threshold': 90, 'name': 'Strategy_4'}
+Results saved to airdrop_simulation_results.csv

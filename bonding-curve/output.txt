@@ -1,0 +1,54 @@
+$ python main.py
+Starting optimization for sigmoid bonding curve...
+Optimization Trial 1/20
+  Trial 1 - Parameters: {'type': 'sigmoid', 'k': 0.030653950925599034, 's0': 138.5170624051801, 'k_max': 12.977850076257484}, Price Std Dev: 0.9657
+  New best parameters found with Std Dev: 0.9657
+Optimization Trial 2/20
+  Trial 2 - Parameters: {'type': 'sigmoid', 'k': 0.016757853505320452, 's0': 122.57331320557815, 'k_max': 6.698709405944584}, Price Std Dev: 0.4057
+  New best parameters found with Std Dev: 0.4057
+Optimization Trial 3/20
+  Trial 3 - Parameters: {'type': 'sigmoid', 'k': 0.01741732692727921, 's0': 123.48900288171228, 'k_max': 10.294747541643373}, Price Std Dev: 0.7164
+Optimization Trial 4/20
+  Trial 4 - Parameters: {'type': 'sigmoid', 'k': 0.046277649509456766, 's0': 61.30315502319994, 'k_max': 14.968956344544969}, Price Std Dev: 0.1997
+  New best parameters found with Std Dev: 0.1997
+Optimization Trial 5/20
+  Trial 5 - Parameters: {'type': 'sigmoid', 'k': 0.0468200453129422, 's0': 73.34005210028008, 'k_max': 13.914173651361963}, Price Std Dev: 0.2983
+Optimization Trial 6/20
+  Trial 6 - Parameters: {'type': 'sigmoid', 'k': 0.01144313885525095, 's0': 74.37869792739228, 'k_max': 12.886385207714282}, Price Std Dev: 0.8496
+Optimization Trial 7/20
+  Trial 7 - Parameters: {'type': 'sigmoid', 'k': 0.04225390098675784, 's0': 64.67660814165149, 'k_max': 10.706137024299496}, Price Std Dev: 0.1755
+  New best parameters found with Std Dev: 0.1755
+Optimization Trial 8/20
+  Trial 8 - Parameters: {'type': 'sigmoid', 'k': 0.016089006184141236, 's0': 93.97554399858433, 'k_max': 13.865505282794473}, Price Std Dev: 0.9152
+Optimization Trial 9/20
+  Trial 9 - Parameters: {'type': 'sigmoid', 'k': 0.0194030606421198, 's0': 93.34472582672822, 'k_max': 6.544994836607908}, Price Std Dev: 0.2950
+Optimization Trial 10/20
+  Trial 10 - Parameters: {'type': 'sigmoid', 'k': 0.01530062436109068, 's0': 131.47061597745284, 'k_max': 14.258166874813483}, Price Std Dev: 1.2534
+Optimization Trial 11/20
+  Trial 11 - Parameters: {'type': 'sigmoid', 'k': 0.04613512977208439, 's0': 80.78985861825174, 'k_max': 6.31648568453738}, Price Std Dev: 0.1347
+  New best parameters found with Std Dev: 0.1347
+Optimization Trial 12/20
+  Trial 12 - Parameters: {'type': 'sigmoid', 'k': 0.039324521915182514, 's0': 73.14528403511814, 'k_max': 8.680856159311793}, Price Std Dev: 0.1767
+Optimization Trial 13/20
+  Trial 13 - Parameters: {'type': 'sigmoid', 'k': 0.029794698077047238, 's0': 102.79618922403702, 'k_max': 14.823660428238515}, Price Std Dev: 0.9110
+Optimization Trial 14/20
+  Trial 14 - Parameters: {'type': 'sigmoid', 'k': 0.02044163548197383, 's0': 120.53994146169971, 'k_max': 8.435430286585746}, Price Std Dev: 0.4989
+Optimization Trial 15/20
+  Trial 15 - Parameters: {'type': 'sigmoid', 'k': 0.039522466552641564, 's0': 147.23426082505756, 'k_max': 13.062362812530834}, Price Std Dev: 1.0435
+Optimization Trial 16/20
+  Trial 16 - Parameters: {'type': 'sigmoid', 'k': 0.02676195131887303, 's0': 146.49507989758172, 'k_max': 12.437854583202483}, Price Std Dev: 1.0478
+Optimization Trial 17/20
+  Trial 17 - Parameters: {'type': 'sigmoid', 'k': 0.013325757645314535, 's0': 110.64064801054644, 'k_max': 11.162966497707876}, Price Std Dev: 0.8304
+Optimization Trial 18/20
+  Trial 18 - Parameters: {'type': 'sigmoid', 'k': 0.022021541657466115, 's0': 115.89824250037327, 'k_max': 8.514479064789615}, Price Std Dev: 0.4777
+Optimization Trial 19/20
+  Trial 19 - Parameters: {'type': 'sigmoid', 'k': 0.04449423449740651, 's0': 136.87829068886055, 'k_max': 10.052636305777096}, Price Std Dev: 0.7197
+Optimization Trial 20/20
+  Trial 20 - Parameters: {'type': 'sigmoid', 'k': 0.03158031619553585, 's0': 122.93955330743279, 'k_max': 14.992076455602737}, Price Std Dev: 1.0488
+Optimization for sigmoid complete.
+Best Parameters: {'type': 'sigmoid', 'k': 0.04613512977208439, 's0': 80.78985861825174, 'k_max': 6.31648568453738}
+
+Simulating with optimal parameters for sigmoid: {'type': 'sigmoid', 'k': 0.04613512977208439, 's0': 80.78985861825174, 'k_max': 6.31648568453738}
+Step 500/500 | Elapsed: 0.12s | Supply: 1525.62 | Price: 6.32 | Avg. Capital: 10.35 | Avg. Tokens: 14.26
+Simulation with optimal parameters complete.
+Total simulation time: 0.12 seconds
