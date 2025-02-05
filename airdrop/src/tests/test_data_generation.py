@@ -1,13 +1,25 @@
 import pytest
 import numpy as np
-from data_generation import generate_user_activity, generate_price_data
+from config import INITIAL_TOKENS
+from data_generation import generate_user_data
 
-def test_generate_user_activity():
-    activity = generate_user_activity(100, 0.5)
-    assert len(activity) == 100
-    assert all(0 <= a <= 1 for a in activity)
+def test_generate_user_data_uniform():
+    num_users = 100
+    airdrop_strategy = {"type": "uniform", "percentage": 0.1}
+    # Dummy user parameters (shape: num_users x 4)
+    user_params = np.ones((num_users, 4))
+    distribution, activity = generate_user_data(num_users, airdrop_strategy, user_params)
+    
+    assert distribution.shape[0] == num_users
+    assert activity.shape[0] == num_users
+    # For a uniform strategy, all users are eligible so distribution > 0
+    assert np.all(distribution > 0)
 
-def test_generate_price_data():
-    prices = generate_price_data(100, 1.0, 0.1, 0.05)
-    assert len(prices) == 100
-    assert all(p > 0 for p in prices)
+def test_generate_user_data_none():
+    num_users = 50
+    airdrop_strategy = {"type": "none", "percentage": 0.1}
+    user_params = np.ones((num_users, 4))
+    distribution, activity = generate_user_data(num_users, airdrop_strategy, user_params)
+    
+    # When type is "none", no one should get tokens
+    assert np.allclose(distribution, 0.0)
