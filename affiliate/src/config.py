@@ -32,15 +32,22 @@ def parse_arguments():
     )
     return parser.parse_args()
 
-args = parse_arguments()
+def get_config_from_args():
+    args = parse_arguments()
+    return {
+        "NUM_SIMULATION_STEPS": args.num_simulation_steps,
+        "NUM_TOKENS": args.num_tokens,
+        "NUM_AFFILIATES": args.num_affiliates,
+        "INITIAL_SUPPLY": args.initial_supply,
+        "INITIAL_PRICE": args.initial_price,
+        "INITIAL_COMMISSION_RATE": args.initial_commission_rate,
+    }
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
-
-NUM_SIMULATION_STEPS = args.num_simulation_steps
-NUM_TOKENS = args.num_tokens
-NUM_AFFILIATES = args.num_affiliates
-INITIAL_SUPPLY = args.initial_supply
-INITIAL_PRICE = args.initial_price
-INITIAL_COMMISSION_RATE = args.initial_commission_rate
+if __name__ == "__main__":
+    config = get_config_from_args()
+    NUM_SIMULATION_STEPS = config["NUM_SIMULATION_STEPS"]
+    NUM_TOKENS = config["NUM_TOKENS"]
+    NUM_AFFILIATES = config["NUM_AFFILIATES"]
+    INITIAL_SUPPLY = config["INITIAL_SUPPLY"]
+    INITIAL_PRICE = config["INITIAL_PRICE"]
+    INITIAL_COMMISSION_RATE = config["INITIAL_COMMISSION_RATE"]

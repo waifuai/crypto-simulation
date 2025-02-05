@@ -8,6 +8,7 @@ class Affiliate:
         self.is_whale = is_whale
         self.base_currency_balance = np.array(1000.0, dtype=np.float32)
         self.wallet = {}
+        self.total_referral_amount = np.array(0.0, dtype=np.float32)
         self.total_earned = np.array(0.0, dtype=np.float32)
         self.earnings_history = []
         self.commission_rate_history = []
@@ -30,6 +31,7 @@ class Affiliate:
     def track_referral(self, trade_amount):
         commission_earned = self.calculate_commission(trade_amount)
         self.total_earned += np.array(commission_earned, dtype=np.float32)
+        self.total_referral_amount += np.array(trade_amount, dtype=np.float32)
         logging.info(f"Affiliate {self.affiliate_id} earned commission: {commission_earned:.2f}")
 
 import logging
