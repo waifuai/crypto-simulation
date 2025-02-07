@@ -1,7 +1,18 @@
 import numpy as np
+from typing import Dict, Any
 
 # --- Bonding Curve Functions ---
-def calculate_bonding_curve_price(supply, params):
+def calculate_bonding_curve_price(supply: float, params: Dict[str, Any]) -> float:
+    """
+    Calculates the price of a token based on a bonding curve.
+
+    Args:
+        supply (float): The current supply of the token.
+        params (Dict[str, Any]): A dictionary of parameters for the bonding curve.
+
+    Returns:
+        float: The calculated price of the token.
+    """
     supply = float(supply)
     curve_type = params.get('type', 'linear')  # Default to linear if type is missing
 

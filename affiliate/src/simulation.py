@@ -6,12 +6,13 @@ from bonding_curves import bonding_curve_functions
 from crypto_token import Token
 from affiliate import Affiliate
 from config import NUM_SIMULATION_STEPS, NUM_TOKENS, NUM_AFFILIATES, INITIAL_SUPPLY, INITIAL_PRICE, INITIAL_COMMISSION_RATE
+from typing import Dict, Any, Tuple, List
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-tokens = [
+tokens: List[Token] = [
     Token(
         f"Token_{i}",
         INITIAL_SUPPLY,
@@ -21,9 +22,15 @@ tokens = [
     for i in range(NUM_TOKENS)
 ]
 
-affiliates = [Affiliate(i, INITIAL_COMMISSION_RATE, i < (NUM_AFFILIATES // 5)) for i in range(NUM_AFFILIATES)]
+affiliates: List[Affiliate] = [Affiliate(i, INITIAL_COMMISSION_RATE, i < (NUM_AFFILIATES // 5)) for i in range(NUM_AFFILIATES)]
 
-def token_simulation_step(step):
+def token_simulation_step(step: int) -> None:
+    """
+    Simulates a single step of the token economy.
+
+    Args:
+        step (int): The current step in the simulation.
+    """
     logging.debug(f"Starting token simulation step: {step}")
     for affiliate in affiliates:
         num_transactions = np.random.randint(1, 3) if not affiliate.is_whale else np.random.randint(0, 2) # Reduced whale transactions
@@ -81,7 +88,13 @@ def token_simulation_step(step):
 
     logging.debug(f"Finished token simulation step: {step}")
 
-def affiliate_simulation_step(step):
+def affiliate_simulation_step(step: int) -> None:
+    """
+    Simulates a single step of the affiliate behavior.
+
+    Args:
+        step (int): The current step in the simulation.
+    """
     logging.debug(f"Starting affiliate simulation step: {step}")
     for affiliate in affiliates:
         for token_name in list(affiliate.wallet.keys()):
@@ -106,8 +119,14 @@ def affiliate_simulation_step(step):
 
     logging.debug(f"Finished affiliate simulation step: {step}")
 
-def run_simulation():
-    token_histories = {
+def run_simulation() -> Tuple[Dict[str, Dict[str, List[Any]]], Dict[int, Dict[str, List[Any]]]]:
+    """
+    Runs the entire simulation.
+
+    Returns:
+        Tuple[Dict[str, Dict[str, List[Any]]], Dict[int, Dict[str, List[Any]]]]: A tuple containing the token histories and affiliate histories.
+    """
+    token_histories: Dict[str, Dict[str, List[Any]]] = {
         token.name: {
             "price": [],
             "supply": [],
@@ -115,7 +134,7 @@ def run_simulation():
         }
         for token in tokens
     }
-    affiliate_histories = {
+    affiliate_histories: Dict[int, Dict[str, List[Any]]] = {
         affiliate.affiliate_id: {
             "earned": [],
             "commission_rate": [],

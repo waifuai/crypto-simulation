@@ -3,9 +3,20 @@ import numpy as np
 from config import INITIAL_TOKEN_SUPPLY, NUM_AGENTS, SIMULATION_STEPS
 from simulation import simulation_step
 from agent import Agent
+from typing import Dict, Any
 
 # --- Objective Function ---
-def evaluate_parameters(params, num_runs=3):  # Increased runs for stability
+def evaluate_parameters(params: Dict[str, Any], num_runs: int=3) -> float:
+    """
+    Evaluates the given bonding curve parameters.
+
+    Args:
+        params (Dict[str, Any]): The parameters of the bonding curve.
+        num_runs (int): The number of simulation runs to perform.
+
+    Returns:
+        float: The average score across all simulation runs.
+    """
     all_metrics = []
     for _ in range(num_runs):
         # Reset simulation state for each run
@@ -35,7 +46,17 @@ def evaluate_parameters(params, num_runs=3):  # Increased runs for stability
     return np.mean(scores)
 
 # --- Optimization Function ---
-def optimize_bonding_curve(curve_type, n_trials=10):
+def optimize_bonding_curve(curve_type: str, n_trials: int=10) -> Dict[str, Any]:
+    """
+    Optimizes the bonding curve parameters using random search.
+
+    Args:
+        curve_type (str): The type of bonding curve to optimize.
+        n_trials (int): The number of random parameter sets to test.
+
+    Returns:
+        Dict[str, Any]: The best set of parameters found.
+    """
     best_params = None
     best_objective_value = float('inf') # Lower standard deviation is better
 

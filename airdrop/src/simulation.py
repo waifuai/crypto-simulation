@@ -1,9 +1,33 @@
 import numpy as np
 from helpers import dynamic_vesting, calculate_buy_sell_probabilities
 from config import SIMULATION_STEPS, INITIAL_PRICE, INITIAL_TOKENS
+from typing import Tuple, Dict, Any, List
 
 # --- Simulation Step ---
-def simulate_step(holdings, buy_probability, sell_probability, total_supply, price, airdrop_per_user, step, user_activity, vesting, vesting_periods, price_threshold, activity_threshold, initial_price, initial_tokens, user_params):
+def simulate_step(holdings: np.ndarray, buy_probability: np.ndarray, sell_probability: np.ndarray, total_supply: float, price: float, airdrop_per_user: np.ndarray, step: int, user_activity: np.ndarray, vesting: str, vesting_periods: int, price_threshold: float, activity_threshold: float, initial_price: float, initial_tokens: float, user_params: np.ndarray) -> Tuple[np.ndarray, float, float, np.ndarray]:
+    """
+    Simulates a single step of the airdrop process.
+
+    Args:
+        holdings (np.ndarray): An array of user holdings.
+        buy_probability (np.ndarray): An array of buy probabilities for each user.
+        sell_probability (np.ndarray): An array of sell probabilities for each user.
+        total_supply (float): The total supply of the token.
+        price (float): The current price of the token.
+        airdrop_per_user (np.ndarray): An array of airdrop amounts per user.
+        step (int): The current simulation step.
+        user_activity (np.ndarray): An array of user activity levels.
+        vesting (str): The type of vesting being used.
+        vesting_periods (int): The number of vesting periods.
+        price_threshold (float): The price threshold for dynamic vesting.
+        activity_threshold (float): The activity threshold for dynamic vesting.
+        initial_price (float): The initial price of the token.
+        initial_tokens (float): The initial number of tokens.
+        user_params (np.ndarray): An array of user parameters.
+
+    Returns:
+        Tuple[np.ndarray, float, float, np.ndarray]: A tuple containing the new holdings, new price, new total supply, and updated user activity.
+    """
     if vesting != "none":
         holdings = dynamic_vesting(holdings, airdrop_per_user, price, {"vesting": vesting, "vesting_periods": vesting_periods, "price_threshold": price_threshold, "activity_threshold": activity_threshold}, step, user_activity)
 
@@ -55,7 +79,21 @@ def simulate_step(holdings, buy_probability, sell_probability, total_supply, pri
     return new_holdings, new_price, new_total_supply, user_activity  # Update return value
 
 # --- Main Simulation Loop ---
-def run_simulation(airdrop_strategy, num_users, simulation_steps, initial_tokens, initial_price, market_sentiment):
+def run_simulation(airdrop_strategy: Dict[str, Any], num_users: int, simulation_steps: int, initial_tokens: float, initial_price: float, market_sentiment: float) -> Tuple[List[float], float, List[float]]:
+    """
+    Runs the airdrop simulation.
+
+    Args:
+        airdrop_strategy (Dict[str, Any]): A dictionary defining the airdrop strategy.
+        num_users (int): The number of users in the simulation.
+        simulation_steps (int): The number of simulation steps to run.
+        initial_tokens (float): The initial number of tokens.
+        initial_price (float): The initial price of the token.
+        market_sentiment (float): The initial market sentiment.
+
+    Returns:
+        Tuple[List[float], float, List[float]]: A tuple containing the price history, final total supply, and market sentiment history.
+    """
     from data_prep import assign_user_parameters
     from data_generation import generate_user_data
 
@@ -72,8 +110,8 @@ def run_simulation(airdrop_strategy, num_users, simulation_steps, initial_tokens
     price_threshold = airdrop_strategy.get("price_threshold", 0.015)
     activity_threshold = airdrop_strategy.get("activity_threshold", 50)
 
-    price_history = []
-    market_sentiment_history = []
+    price_history: List[float] = []
+    market_sentiment_history: List[float] = []
     initial_market_sentiment = float(market_sentiment)
 
     for step in range(simulation_steps):

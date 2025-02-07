@@ -2,8 +2,20 @@ import numpy as np
 from constants import SIMULATION_STEPS, NUM_RESOURCES, TAX_RATE, NUM_AGENTS
 from helpers import update_resource_prices, get_resource_prices, get_resource_availability, get_agent_requests, allocate_resources, deallocate_resources, regenerate_resources, adjust_agent_needs, adjust_agent_demand_multiplier, add_agent_income, add_agent_expense, check_agent_bankruptcies, tax_agents, redistribute_wealth, adjust_resource_capacity, get_agent_balances, get_total_economic_output, calculate_gini_coefficient, get_resource_load_and_prices
 from models import Agent, Resource
+from typing import List, Dict, Any
 
-def simulation_step(agents, resources, step_num):
+def simulation_step(agents: List[Agent], resources: List[Resource], step_num: int) -> Dict[str, Any]:
+    """
+    Runs a single step of the simulation.
+
+    Args:
+        agents (List[Agent]): List of agents.
+        resources (List[Resource]): List of resources.
+        step_num (int): The current step number.
+
+    Returns:
+        Dict[str, Any]: A dictionary containing metrics for the current step.
+    """
     update_resource_prices(resources)
     resource_prices = get_resource_prices(resources)
     resource_availability = get_resource_availability(resources)
@@ -37,7 +49,16 @@ def simulation_step(agents, resources, step_num):
         "economic_output": total_economic_output
     }
 
-def run_simulation(params):
+def run_simulation(params: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Runs the simulation with the given parameters.
+
+    Args:
+        params (Dict[str, Any]): A dictionary of parameters to override the default constants.
+
+    Returns:
+        Dict[str, Any]: A dictionary containing the results of the simulation.
+    """
     from constants import PRICE_ELASTICITY, RESOURCE_REGEN_RATE, INITIAL_IMBALANCE, IMBALANCE_STRENGTH, SIMULATION_STEPS, NUM_AGENTS, AGENT_EXPENSE_RATE
     original_price_elasticity = PRICE_ELASTICITY
     original_resource_regen_rate = RESOURCE_REGEN_RATE

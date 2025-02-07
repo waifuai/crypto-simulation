@@ -1,11 +1,13 @@
 from simulation import run_simulation
 from config import NUM_TOKENS
 import pandas as pd
+from typing import Dict, Any, Tuple
 
 if __name__ == "__main__":
+    """Runs the simulation and prints a summary of the results."""
     token_histories, affiliate_histories = run_simulation()
 
-    summary = {
+    summary: Dict[str, Dict[str, Any]] = {
         "tokens": {},
         "affiliates": {}
     }

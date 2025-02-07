@@ -1,13 +1,15 @@
 import argparse
 import logging
 from constants import NUM_SIMULATION_STEPS, NUM_TOKENS, NUM_AFFILIATES, INITIAL_SUPPLY, INITIAL_PRICE, INITIAL_COMMISSION_RATE, INITIAL_TOKEN_INVESTMENT, bonding_curve_change_intervals, BONDING_CURVE_PARAM_CHANGE_INTERVAL
+from typing import Dict, Any
 
 # Set up logging
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
-def parse_arguments():
+def parse_arguments() -> argparse.Namespace:
+    """Parses command line arguments."""
     parser = argparse.ArgumentParser(description="Simulate a token economy.")
     parser.add_argument(
         "--num_simulation_steps", type=int, default=100, help="Number of simulation steps."
@@ -32,7 +34,8 @@ def parse_arguments():
     )
     return parser.parse_args()
 
-def get_config_from_args():
+def get_config_from_args() -> Dict[str, Any]:
+    """Gets configuration from command line arguments."""
     args = parse_arguments()
     return {
         "NUM_SIMULATION_STEPS": args.num_simulation_steps,
@@ -44,10 +47,10 @@ def get_config_from_args():
     }
 
 if __name__ == "__main__":
-    config = get_config_from_args()
-    NUM_SIMULATION_STEPS = config["NUM_SIMULATION_STEPS"]
-    NUM_TOKENS = config["NUM_TOKENS"]
-    NUM_AFFILIATES = config["NUM_AFFILIATES"]
-    INITIAL_SUPPLY = config["INITIAL_SUPPLY"]
-    INITIAL_PRICE = config["INITIAL_PRICE"]
-    INITIAL_COMMISSION_RATE = config["INITIAL_COMMISSION_RATE"]
+    config: Dict[str, Any] = get_config_from_args()
+    NUM_SIMULATION_STEPS: int = config["NUM_SIMULATION_STEPS"]
+    NUM_TOKENS: int = config["NUM_TOKENS"]
+    NUM_AFFILIATES: int = config["NUM_AFFILIATES"]
+    INITIAL_SUPPLY: int = config["INITIAL_SUPPLY"]
+    INITIAL_PRICE: float = config["INITIAL_PRICE"]
+    INITIAL_COMMISSION_RATE: float = config["INITIAL_COMMISSION_RATE"]

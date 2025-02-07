@@ -1,8 +1,24 @@
 import numpy as np
 from config import INITIAL_PRICE, SIMULATION_STEPS, INITIAL_TOKENS, MARKET_CYCLES
+from typing import Tuple, Dict, Any
 
 # --- Helper Functions ---
-def calculate_buy_sell_probabilities(user_params, current_price, initial_price, market_sentiment, airdrop_strategy, holdings, step):
+def calculate_buy_sell_probabilities(user_params: np.ndarray, current_price: float, initial_price: float, market_sentiment: float, airdrop_strategy: Dict[str, Any], holdings: np.ndarray, step: int) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Calculates the buy and sell probabilities for each user.
+
+    Args:
+        user_params (np.ndarray): An array of user parameters.
+        current_price (float): The current price of the token.
+        initial_price (float): The initial price of the token.
+        market_sentiment (float): The current market sentiment.
+        airdrop_strategy (Dict[str, Any]): A dictionary defining the airdrop strategy.
+        holdings (np.ndarray): An array of user holdings.
+        step (int): The current simulation step.
+
+    Returns:
+        Tuple[np.ndarray, np.ndarray]: A tuple containing the buy and sell probabilities.
+    """
     airdrop_price = airdrop_strategy.get("airdrop_price", initial_price)
 
     base_buy_prob = user_params[:, 0]
@@ -39,7 +55,21 @@ def calculate_buy_sell_probabilities(user_params, current_price, initial_price, 
 
     return buy_prob, sell_prob
 
-def dynamic_vesting(holdings, airdrop_per_user, current_price, airdrop_strategy, step, user_activity):
+def dynamic_vesting(holdings: np.ndarray, airdrop_per_user: np.ndarray, current_price: float, airdrop_strategy: Dict[str, Any], step: int, user_activity: np.ndarray) -> np.ndarray:
+    """
+    Applies dynamic vesting to user holdings.
+
+    Args:
+        holdings (np.ndarray): An array of user holdings.
+        airdrop_per_user (np.ndarray): An array of airdrop amounts per user.
+        current_price (float): The current price of the token.
+        airdrop_strategy (Dict[str, Any]): A dictionary defining the airdrop strategy.
+        step (int): The current simulation step.
+        user_activity (np.ndarray): An array of user activity levels.
+
+    Returns:
+        np.ndarray: An array of updated user holdings.
+    """
     vesting_type = airdrop_strategy["vesting"]
     vesting_periods = airdrop_strategy.get("vesting_periods", 1)
 

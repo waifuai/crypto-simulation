@@ -1,8 +1,9 @@
 import itertools
 import random
+from typing import Dict, Any, List
 
 # --- Airdrop Strategies Parameter Grid ---
-AIRDROP_PARAMETER_GRID = {
+AIRDROP_PARAMETER_GRID: Dict[str, Any] = {
     "type": ["lottery", "basic", "tiered"],
     "percentage": [0.05, 0.1],
     "vesting": ["dynamic_activity", "dynamic_price", "linear", "none"],
@@ -19,7 +20,17 @@ AIRDROP_PARAMETER_GRID = {
 }
 
 # --- Function to Generate Airdrop Strategies ---
-def generate_airdrop_strategies(param_grid, max_strategies):
+def generate_airdrop_strategies(param_grid: Dict[str, Any], max_strategies: int) -> List[Dict[str, Any]]:
+    """
+    Generates a list of airdrop strategies based on the given parameter grid.
+
+    Args:
+        param_grid (Dict[str, Any]): A dictionary defining the parameter grid for the airdrop strategies.
+        max_strategies (int): The maximum number of strategies to generate.
+
+    Returns:
+        List[Dict[str, Any]]: A list of airdrop strategies.
+    """
     keys = list(param_grid.keys())
     strategies = []
 

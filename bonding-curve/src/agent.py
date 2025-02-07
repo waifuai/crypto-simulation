@@ -2,22 +2,49 @@ import numpy as np
 import random
 from config import INITIAL_AGENT_CAPITAL, AGENT_MEMORY_SIZE, AGENT_TREND_THRESHOLD, AGENT_TREND_DELAY, AGENT_TRADE_FREQUENCY, AGENT_TRADE_SIZE_RANGE, TRADING_FEE, INITIAL_TOKEN_PRICE
 from bonding_curves import calculate_bonding_curve_price
+from typing import Tuple, Optional, Dict, Any
 
 # --- Agent State ---
 class Agent:
-    def __init__(self, agent_id):
-        self.agent_id = agent_id
-        self.capital = INITIAL_AGENT_CAPITAL
-        self.tokens = 0.0
-        # Initialize with first price instead of zeros
-        self.price_memory = np.full(AGENT_MEMORY_SIZE, INITIAL_TOKEN_PRICE)
-        self.last_trade_step = -AGENT_TREND_DELAY
+    """
+    Represents an agent trading on the bonding curve.
+    """
+    def __init__(self, agent_id: int):
+        """
+        Initializes an agent.
 
-    def update_memory(self, current_price):
+        Args:
+            agent_id (int): The ID of the agent.
+        """
+        self.agent_id: int = agent_id
+        self.capital: float = INITIAL_AGENT_CAPITAL
+        self.tokens: float = 0.0
+        # Initialize with first price instead of zeros
+        self.price_memory: np.ndarray = np.full(AGENT_MEMORY_SIZE, INITIAL_TOKEN_PRICE)
+        self.last_trade_step: int = -AGENT_TREND_DELAY
+
+    def update_memory(self, current_price: float) -> None:
+        """
+        Updates the agent's price memory.
+
+        Args:
+            current_price (float): The current price of the token.
+        """
         if current_price is not None:
             self.price_memory = np.concatenate((self.price_memory[1:], [current_price]))
 
-    def trade(self, current_supply, current_step, bonding_curve_params):
+    def trade(self, current_supply: float, current_step: int, bonding_curve_params: Dict[str, Any]) -> Tuple[Optional[str], float]:
+        """
+        Determines whether the agent should trade and in which direction.
+
+        Args:
+            current_supply (float): The current supply of the token.
+            current_step (int): The current simulation step.
+            bonding_curve_params (Dict[str, Any]): The parameters of the bonding curve.
+
+        Returns:
+            Tuple[Optional[str], float]: A tuple containing the trade direction ("buy" or "sell") and the amount to trade, or (None, 0) if no trade.
+        """
         if random.random() < AGENT_TRADE_FREQUENCY and current_step > (self.last_trade_step + AGENT_TREND_DELAY):
             trade_size = random.uniform(
                 AGENT_TRADE_SIZE_RANGE[0], AGENT_TRADE_SIZE_RANGE[1]

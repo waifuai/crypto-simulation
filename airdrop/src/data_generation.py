@@ -1,8 +1,20 @@
 import numpy as np
 from config import INITIAL_TOKENS
+from typing import Tuple, Dict, Any
 
 # --- Data Generation ---
-def generate_user_data(num_users, airdrop_strategy, user_params):
+def generate_user_data(num_users: int, airdrop_strategy: Dict[str, Any], user_params: Dict[str, Any]) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    Generates user data including initial holdings, activity, and airdrop distribution.
+
+    Args:
+        num_users (int): The number of users to generate data for.
+        airdrop_strategy (Dict[str, Any]): A dictionary defining the airdrop strategy.
+        user_params (Dict[str, Any]): A dictionary containing user parameters.
+
+    Returns:
+        Tuple[np.ndarray, np.ndarray]: A tuple containing the airdrop distribution and user activity.
+    """
     initial_holdings = np.zeros(num_users)
     user_activity = np.random.poisson(lam=20.0, size=num_users).astype(np.float32)
     user_activity = user_activity + np.random.uniform(low=0, high=5, size=num_users)
