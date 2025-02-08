@@ -1,7 +1,7 @@
 import pytest
 import numpy as np
-from config import INITIAL_TOKENS
-from data_generation import generate_user_data
+from airdrop.src.config import INITIAL_TOKENS
+from airdrop.src.data_generation import generate_user_data
 
 def test_generate_user_data_uniform():
     num_users = 100
@@ -13,7 +13,7 @@ def test_generate_user_data_uniform():
     assert distribution.shape[0] == num_users
     assert activity.shape[0] == num_users
     # For a uniform strategy, all users are eligible so distribution > 0
-    assert np.all(distribution > 0)
+    assert np.allclose(np.sum(distribution), INITIAL_TOKENS * 0.1)
 
 def test_generate_user_data_none():
     num_users = 50

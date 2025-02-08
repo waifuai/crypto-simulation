@@ -1,21 +1,21 @@
 import logging
-from experimentation import experiment_results
-from simulation import run_simulation
-from constants import *
 from typing import Dict, Any, List
+
+from mcp.src.experimentation import experiment_results
+from mcp.src.simulation import run_simulation
+from mcp.src.config import *
 
 # --- Logging Configuration ---
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-
-if __name__ == "__main__":
+def main():
     """
     Main entry point for the parameter experimentation.
     """
     logging.info("Starting parameter experimentation...")
-    
+
     # The experimentation and analysis are now in experimentation.py
-    
+
     logging.info("Performing further analysis...")
 
     if 'tax_rate' in experiment_results:
@@ -29,3 +29,6 @@ if __name__ == "__main__":
         logging.info(f"Regen rate that maximizes average final balance: {best_regen_rate_data['param_value']}")
 
     logging.info("Experimentation and analysis complete.")
+
+if __name__ == "__main__":
+    main()

@@ -1,12 +1,13 @@
 import pytest
 import numpy as np
-from bonding_curves import calculate_bonding_curve_price
+from bonding_curve.src.bonding_curves import calculate_bonding_curve_price
+from bonding_curve.src.config import INITIAL_TOKEN_SUPPLY
 
 def test_linear_curve():
     params = {'type': 'linear', 'm': 0.1, 'b': 1.0}
-    assert calculate_bonding_curve_price(10, params) == 2.0
+    assert calculate_bonding_curve_price(INITIAL_TOKEN_SUPPLY / 10, params) == 0.1 * (INITIAL_TOKEN_SUPPLY / 10) + 1.0
     params = {'type': 'linear', 'm': 0.5, 'b': 2.5}
-    assert calculate_bonding_curve_price(5, params) == 5.0
+    assert calculate_bonding_curve_price(INITIAL_TOKEN_SUPPLY / 20, params) == 0.5 * (INITIAL_TOKEN_SUPPLY / 20) + 2.5
 
 def test_exponential_curve():
     params = {'type': 'exponential', 'a': 0.1, 'k': 0.01}
