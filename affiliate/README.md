@@ -1,121 +1,94 @@
-# Token Economy Simulation with Bonding Curves and Affiliate Dynamics
+# affiliate
 
-## Overview
+**Key Features:**
 
-This project simulates a dynamic token economy with multiple cryptocurrencies, bonding curve mechanisms, and affiliate marketing dynamics. It demonstrates how token prices evolve based on supply/demand through different bonding curves, while affiliates earn commissions and adapt their strategies in real-time.
+* **Token Creation:**  Simulates multiple tokens, each with its own supply and price.
+* **Dynamic Bonding Curves:** Token prices are determined by bonding curves, which mathematically link the token's price to its supply. The simulation includes several types of bonding curves (linear, exponential, sigmoid, root, inverse), and the active bonding curve for each token can change periodically. The parameters of these curves can also be adjusted dynamically.
+* **Affiliate Network:** Models a network of affiliates who can buy and sell tokens.
+* **Commissions:** Affiliates earn commissions, and their commission rates can dynamically adjust based on their activity and earnings.
+* **Simulation Steps:** The simulation progresses in discrete time steps, with actions and calculations performed at each step.
+* **Data Logging and Analysis:** The simulation logs key metrics like token prices, supplies, affiliate balances, and commission rates over time. This data can be used for analysis and visualization.
+* **Mathematical Foundation:** The code is based on the mathematical principles of bonding curves and economic modeling, as detailed in the accompanying `math.md` document.
 
-## Key Features
+**What the Code Does:**
 
-- **5 Bonding Curve Types**
-  - Linear, Exponential, Sigmoid, Root, and Inverse curves
-  - Automatic curve switching and parameter randomization
-- **Dynamic Affiliate System**
-  - Adaptive commission rates (0-20% range)
-  - Whale affiliates with large investment capacity
-  - Portfolio tracking and automated trading strategies
-- **Economic Mechanics**
-  - Transaction fees (0.25%) and token burns (0.02%)
-  - Supply-dependent price calculations
-  - Configurable simulation parameters
-- **Simulation Analytics**
-  - Step-by-step price/supply tracking
-  - Affiliate earnings history
-  - Comprehensive end-of-run summary reports
+The `main.py` script simulates the following process:
 
-## Installation
+1. **Initialization:**
+   - Sets up the simulation environment, including the number of tokens, affiliates, and initial parameters (supply, price, commission rates, etc.).
+   - Creates instances of `Token` and `Affiliate` classes. Each token is initialized with a starting bonding curve function.
 
-1. **Requirements**
-   - Python 3.8+
-   - NumPy
+2. **Simulation Loop:**
+   - Iterates through a specified number of simulation steps.
+   - **Token Simulation Step:**
+     - For each affiliate, simulates buying and selling tokens based on their available base currency and token holdings.
+     - Recalculates token prices based on the current supply and the active bonding curve.
+     - Periodically changes the bonding curve function or its parameters for each token.
+   - **Affiliate Simulation Step:**
+     - Simulates periodic selling of tokens by affiliates.
+     - Tracks affiliate earnings and dynamically adjusts their commission rates based on their performance.
 
-2. **Setup**
+3. **Data Collection:**
+   - At each step, records the price and supply of each token, the base currency and token holdings of each affiliate, and their commission rates.
+
+4. **Analysis and Visualization:**
+   - After the simulation completes, the script analyzes the collected data, calculating statistics like mean and standard deviation of prices and supplies.
+   - It generates plots visualizing:
+     - Token prices over time.
+     - Token supply over time.
+     - Token price vs. supply.
+     - Average affiliate base currency over time.
+     - Average affiliate commission rate over time.
+     - Base currency of whale and non-whale affiliates.
+     - Wallet composition of an example affiliate.
+   - Includes more advanced plotting functions for analyzing token prices, supply, and affiliate base currency distributions using `matplotlib`.
+
+**Mathematical Basis (`math.md`):**
+
+The `math.md` file provides a mathematical formulation of the simulated token economy. It defines the key variables and relationships, including:
+
+* **Token Price Function:**  $P_i(t) = f_i(S_i(t), \theta_i(t))$, where the price of token $i$ at time $t$ depends on its supply $S_i(t)$ and the parameters of the bonding curve $\theta_i(t)$.
+* **Bonding Curve Formulas:**  Explicit mathematical expressions for the linear, exponential, sigmoid, root, and inverse bonding curves.
+* **Transaction Dynamics:** Mathematical descriptions of how buying and selling tokens affect token supply and affiliate balances.
+* **Commission Adjustment Rules:**  A logical or piecewise function describing how affiliate commission rates are adjusted dynamically based on their performance.
+
+Referencing the math paper allows for a deeper understanding of the underlying economic principles and mathematical models that the Python code implements.
+
+**How to Use the Code:**
+
+1. **Clone the Repository:**
    ```bash
-   pip install numpy
+   git clone <repository_url>
+   cd <repository_directory>
    ```
 
-## Usage
-
-Run the simulation with default parameters:
-```bash
-python main.py
-```
-
-Customize the simulation:
-```bash
-python main.py \
-  --num_simulation_steps 500 \
-  --num_tokens 8 \
-  --num_affiliates 10 \
-  --initial_price 2.0 \
-  --initial_commission_rate 0.15
-```
-
-## Configuration Options
-
-### Command Line Arguments
-| Parameter | Description | Default |
-|-----------|-------------|---------|
-| `--num_simulation_steps` | Total steps to simulate | 100 |
-| `--num_tokens` | Number of distinct tokens | 5 |
-| `--num_affiliates` | Number of affiliates | 5 |
-| `--initial_price` | Starting price for all tokens | 1.0 |
-| `--initial_commission_rate` | Base affiliate commission rate | 0.10 |
-
-### Key Constants (constants.py)
-```python
-INITIAL_SUPPLY = 10000        # Starting token supply
-TRANSACTION_FEE_RATE = 0.0025 # 0.25% per trade
-BURN_RATE = 0.0002            # 0.02% token burn
-COMMISSION_DYNAMICS_STEP = 10 # Commission adjustment interval
-WHALE_INVESTMENT_RANGE = (5000, 10000) # Whale capacity bounds
-```
-
-## Simulation Mechanics
-
-### Token Dynamics
-1. **Price Calculation**
-   ```python
-   # Example exponential curve
-   price = a * e^(k * supply)
+2. **Install Dependencies:**
+   ```bash
+   pip install pandas tensorflow numpy matplotlib
    ```
-2. **Supply Changes**
-   - Buys increase supply, sells decrease supply
-   - Automatic fee deduction and token burns
 
-3. **Bonding Curve Evolution**
-   - Random curve selection every 500-1000 steps
-   - Parameter adjustments every 20 steps
-
-### Affiliate Behavior
-1. **Commission Adjustments**
-   - Rates adjusted every 10 steps based on:
-   ```python
-   avg_investment > 50 ? rate += 0.0005 : rate -= 0.0005
+3. **Run the Simulation:**
+   ```bash
+   python code/kaggle/affiliate/main.py
    ```
-2. **Trading Strategies**
-   - Regular affiliates: 1-2 trades/step
-   - Whale affiliates: Large bulk trades (5,000-10,000 base currency)
-   - Automatic portfolio rebalancing (5% sell probability/step)
 
-3. **Wallet Management**
-   - Track multiple token balances
-   - Base currency accounting
-   - Historical earnings tracking
+4. **Analyze Results:**
+   - The script will output logging information during the simulation.
+   - After the simulation, it will print summary statistics and display various plots visualizing the simulation results.
+   - You can further analyze the `token_histories` and `affiliate_histories` data structures in the code or save them to files for more detailed analysis.
 
-## Output Example
+**File Structure:**
 
-```text
---- Token Summary ---
+* `main.py`: The main Python script containing the simulation code.
+* `math.md`: The Markdown file detailing the mathematical formulation of the simulation.
 
-Token: Token_3
-  Final Price: 4.72
-  Final Supply: 14256.32
-  Final Bonding Curve: exponential_bonding_curve
+**Potential Extensions:**
 
---- Affiliate Summary ---
+This simulation provides a foundation for exploring more complex token economic models. Potential extensions include:
 
-Affiliate: 4
-  Final Base Currency: 3842.15
-  Final Commission Rate: 0.1125
-  Total Earned: 642.78
-```
+* **More Sophisticated Affiliate Strategies:** Implement different buying and selling strategies for affiliates, including AI-driven agents.
+* **External Factors:** Introduce external events or market conditions that can influence token prices and affiliate behavior.
+* **Network Effects:** Model interactions and dependencies between different tokens or affiliates.
+* **Governance Mechanisms:** Simulate the impact of voting or other governance mechanisms on the token economy.
+
+This project utilizes TensorFlow for numerical computation, enabling efficient simulation of the dynamic system. By running and modifying this code, you can gain valuable insights into the behavior of token economies with evolving bonding curves and participant dynamics.

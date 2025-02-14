@@ -1,69 +1,35 @@
-# Token Airdrop Strategy Simulator
+# airdrop
 
-## Project Overview
-This simulation framework analyzes the impact of different token airdrop strategies on market dynamics. It models user behavior, market cycles, and complex vesting mechanisms to evaluate strategy effectiveness based on final token price and supply metrics.
+ Think of it like a virtual sandbox where we can test out different ways of giving away tokens and see what happens to the token's value.
 
-## Key Features
-- **Multiple Airdrop Strategies**: Tiered distributions, lotteries, and uniform allocations
-- **Dynamic Vesting**: Price-triggered, activity-based, and linear vesting schedules
-- **Market Simulation**: 
-  - Cyclical price patterns
-  - User archetype modeling (HODLers, Speculators, etc.)
-  - Network effects and liquidity impacts
-- **Advanced Economics**:
-  - Gas fee modeling
-  - Whale detection system
-  - Token burning mechanics
+## What does this code do?
 
-## Core Parameters (config.py)
-```python
-INITIAL_TOKENS = 1_000_000_000  # Total supply
-INITIAL_PRICE = 0.10            # USD per token
-NUM_USERS = 100                 # Simulation participants
-SIMULATION_STEPS = 1024         # Market iterations
+Imagine you're launching a new cryptocurrency and want to give some tokens away to early users. This is called an "airdrop". But how you do that airdrop can make a big difference to how people use the token and what it's worth.
 
-USER_ARCHETYPES = {
-    "SPECULATOR": {"buy_prob": 0.6, "sell_prob": 0.9},
-    "HODLER": {"buy_prob": 0.2, "sell_prob": 0.1},
-    "AIRDROP_HUNTER": {"buy_prob": 0.1, "sell_prob": 0.95},
-    "ACTIVE_USER": {"buy_prob": 0.4, "sell_prob": 0.3}
-}
-```
+This code lets us simulate a token economy with different airdrop strategies. It models:
 
-## Strategy Optimization Results
-Top performing strategy from simulations:
+*   **Users:** We have different types of users (like speculators, long-term holders, airdrop hunters, and active users), each with their own tendencies to buy or sell tokens.
+*   **Token Price:** The price of the token changes based on how much people are buying and selling.
+*   **Airdrops:** We can simulate different ways of distributing the tokens, such as:
+    *   **Lottery:** Randomly selecting winners to receive tokens.
+    *   **Uniform:** Giving the same amount of tokens to everyone.
+    *   **Tiered:** Giving different amounts of tokens based on how much a user already holds or how active they are.
+    *   **Vesting:**  Releasing the airdropped tokens over time, sometimes depending on certain conditions being met (like the token price going up or the user being active).
+*   **Market Behavior:** Users make decisions to buy or sell tokens based on factors like the current price, how they feel about the market, and the specific airdrop strategy being used.
+*   **Token Supply:** The total number of tokens in circulation can change due to a "burn" mechanism (a small percentage of tokens is removed from circulation with each transaction).
 
-| Metric            | Value       | Strategy Details                                                                 |
-|-------------------|-------------|----------------------------------------------------------------------------------|
-| **Final Price**   | $0.1291     | Tiered distribution based on holdings                                            |
-| **Final Supply**  | 1,004,957K  | 10% allocation with linear vesting over 3 periods                                |
-| **Key Features**  |             | Thresholds: [0.05, 0.2, 0.6, 1.2], Weights: [0.1, 0.2, 0.3, 0.4]                |
+The code runs a simulation for each different airdrop strategy we define. It tracks the token price over time and the final total supply of tokens. This lets us compare which airdrop strategies might be more effective at increasing the token's value or influencing the token's economy in other ways.
 
-[Complete results: airdrop_simulation_results.csv]
+## Why is this useful?
 
-## File Structure
-| File                 | Description                                                                 |
-|----------------------|-----------------------------------------------------------------------------|
-| `main.py`            | Main execution and result analysis                                          |
-| `simulation.py`      | Core market dynamics engine                                                 |
-| `strategies.py`      | Strategy generator with parameter grid                                      |
-| `helpers.py`         | Price calculations and vesting logic                                        |
-| `data_generation.py` | User eligibility and airdrop distribution                                   |
-| `config.py`          | Centralized simulation parameters and economic constants                   |
+By simulating these different scenarios, we can get a better understanding of the potential consequences of different airdrop strategies *before* actually implementing them. This can help in designing more effective and sustainable token distribution mechanisms.
 
-## Usage
-1. Install dependencies:
-   ```bash
-   pip install numpy pandas
-   ```
-2. Modify strategies in `strategies.py`
-3. Run simulation:
-   ```bash
-   python main.py
-   ```
-4. Analyze `airdrop_simulation_results.csv`
+## Want to know the details?
 
-## Key Findings
-- **Vesting Impact**: Strategies with vesting periods >3 showed 23% higher price stability
-- **Distribution Type**: Tiered allocations outperformed lottery systems by 41% on average
-- **Criteria Selection**: Activity-based distributions showed 18% better price retention than holdings-based
+If you're interested in the more technical details of how the simulation works, including the mathematical formulas and models used, you can check out the accompanying document: [`math.md`](math.md). This document explains the mathematical underpinnings of the simulation.
+
+## Running the code
+
+The Python code (`main.py`) will run the simulations and generate a CSV file (`airdrop_simulation_results.csv`) containing the results for each airdrop strategy. It will also display a graph showing the token price over time for each strategy.
+
+This project is a simplified model of a complex system, but it provides a valuable tool for exploring the dynamics of cryptocurrency airdrops.

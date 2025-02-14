@@ -1,96 +1,91 @@
-# Token Economy Simulation with Bonding Curves
+# bonding curve
+
+This repository contains a Python simulation of a bonding curve mechanism with interacting agents, along with a mathematical formulation of the model. The primary goal is to explore the dynamics of bonding curves and optimize their parameters to achieve desired market behaviors, such as minimizing price volatility.
 
 ## Overview
-This project simulates a token-based economy where autonomous agents interact with a bonding curve mechanism. The simulation explores how different bonding curve parameters affect market stability, token supply, and price dynamics. An optimization component automatically tunes bonding curve parameters to minimize price volatility while maintaining healthy market activity.
 
-## Key Features
-- **Bonding Curve Models**: Supports multiple bonding curve types:
-  - Linear
-  - Exponential
-  - Sigmoid
-  - Multi-segment (combination of linear and exponential)
-- **Autonomous Agents**: Agents with:
-  - Price memory tracking
-  - Trend-based trading strategies
-  - Randomized trade frequency and size
-- **Parameter Optimization**: Bayesian optimization for finding optimal bonding curve parameters
-- **Simulation Metrics**: Tracks:
-  - Token supply over time
-  - Price history
-  - Agent wealth distribution
-  - Market volatility
+This project consists of two main components:
 
-## Project Structure
-```bash
-.
-├── agent.py            # Agent class and trading logic
-├── bonding_curves.py   # Bonding curve price calculations
-├── config.py           # Simulation parameters and constants
-├── main.py             # Main execution and visualization
-├── optimization.py     # Parameter optimization logic
-└── simulation.py       # Simulation state management
-```
+1. **Python Simulation (`main.py`):** A Python script that simulates a market with a bonding curve and multiple trading agents. Agents make buy and sell decisions based on observed price trends. The simulation allows for experimentation with different bonding curve types and their parameters.
+2. **Mathematical Formulation (`math.md`):** A document providing a formal mathematical description of the bonding curve model, agent behavior, and the optimization problem. This document serves as a theoretical foundation for the simulation.
 
-## Installation
-1. Ensure Python 3.8+ is installed
-2. Install required dependencies:
-```bash
-pip install numpy
-```
+## Key Features of the Simulation
 
-## Usage
-1. Configure simulation parameters in `config.py`
-2. Run the simulation:
-```bash
-python main.py
-```
+*   **Multiple Bonding Curve Types:** The simulation supports several common bonding curve functions:
+    *   Linear
+    *   Exponential
+    *   Sigmoid
+    *   Multi-segment
+*   **Agent-Based Modeling:** Simulates individual agents with capital and token holdings, making trading decisions based on:
+    *   Trading frequency
+    *   Trade size
+    *   Memory of past prices
+    *   Trend detection
+*   **Parameter Optimization:** Implements a basic optimization routine to find bonding curve parameters that minimize token price volatility.
+*   **Market Dynamics:** Simulates the interaction between agents and the bonding curve, showing how supply, price, and agent wealth evolve over time.
+*   **Visualization:** Generates plots to visualize key metrics like token supply, token price, and agent capital/token distribution over the simulation period.
 
-### Configuration (config.py)
-Key parameters:
-```python
-NUM_AGENTS = 100             # Number of trading agents
-SIMULATION_STEPS = 500       # Simulation duration
-BONDING_CURVE_TYPE = 'sigmoid'  # Default curve type
-INITIAL_AGENT_CAPITAL = 100.0  # Starting capital per agent
-TRADING_FEE = 0.001          # Transaction fee percentage
-```
+## Getting Started
 
-## Agent Behavior
-Agents make trading decisions based on:
-- Price trend analysis (window size = `AGENT_MEMORY_SIZE`)
-- Randomized trade frequency (`AGENT_TRADE_FREQUENCY`)
-- Minimum price movement threshold (`AGENT_TREND_THRESHOLD`)
-- Trade cooldown period (`AGENT_TREND_DELAY`)
+### Prerequisites
 
-Trading logic:
-1. Track historical prices in memory buffer
-2. Calculate price trend relative to historical average
-3. Execute buy/sell orders when trends exceed thresholds
-4. Maintain minimum time between trades
+*   Python 3.x
+*   TensorFlow (`pip install tensorflow`)
+*   NumPy (`pip install numpy`)
+*   Matplotlib (`pip install matplotlib`)
 
-## Bonding Curve Models
-Implemented curve types:
-1. **Linear**: `price = m*supply + b`
-2. **Exponential**: `price = a*exp(k*supply)`
-3. **Sigmoid**: `price = k_max / (1 + exp(-k*(supply - s0)))`
-4. **Multi-segment**: Combination of linear and exponential phases
+### Running the Simulation
 
-## Optimization Process
-The optimization module:
-1. Randomly samples parameter combinations
-2. Runs multiple simulation trials
-3. Evaluates based on:
-   - Price standard deviation
-   - Total price change
-   - Supply stability
-4. Selects parameters minimizing volatility while maintaining market activity
+1. **Clone the repository:**
+    ```bash
+    git clone <repository_url>
+    cd <repository_name>
+    ```
+2. **Run the Python script:**
+    ```bash
+    python main.py
+    ```
 
-## Simulation Output
-The main simulation tracks:
-- Token supply over time
-- Price history
-- Agent capital distribution
-- Token holdings distribution
-- Wealth inequality metrics
+    The script will perform an optimization run for the specified `OPTIMIZE_CURVE_TYPE` and then simulate the market with the optimal parameters found.
 
-Metrics are logged at regular intervals and visualized at simulation completion.
+### Understanding the Code
+
+*   **Configuration:** The top section of `main.py` defines various parameters for the simulation, such as the number of agents, simulation steps, initial conditions, and agent trading behavior.
+*   **Bonding Curve Functions:** The `calculate_bonding_curve_price` function implements the different bonding curve formulas.
+*   **Agent Class:** The `Agent` class defines the state and behavior of individual trading agents.
+*   **Simulation Logic:** The `simulation_step` function executes a single step of the simulation, handling agent trading and updating the market state.
+*   **Optimization:** The `optimize_bonding_curve` function implements a randomized search to find optimal bonding curve parameters.
+*   **Main Execution:** The `if __name__ == "__main__":` block orchestrates the optimization and simulation process.
+
+## Understanding the Mathematical Model
+
+For a detailed mathematical formulation of the bonding curve model, agent behavior, and the optimization problem, please refer to the `math.md` document. This document provides the formal definitions and equations that underpin the simulation.
+
+## Customization
+
+You can customize the simulation by modifying the parameters in the configuration section of `main.py`. This includes:
+
+*   **Bonding Curve:** Changing the `BONDING_CURVE_TYPE` and the default parameters within the `calculate_bonding_curve_price` function.
+*   **Agent Behavior:** Adjusting parameters like `AGENT_TRADE_FREQUENCY`, `AGENT_TRADE_SIZE_RANGE`, `AGENT_MEMORY_SIZE`, `AGENT_TREND_THRESHOLD`, and `AGENT_TREND_DELAY`.
+*   **Simulation Settings:** Modifying `NUM_AGENTS`, `SIMULATION_STEPS`, and initial economic conditions.
+*   **Optimization:** Changing the `OPTIMIZE_CURVE_TYPE` and the number of optimization trials (`n_trials`).
+
+## Results and Visualization
+
+After running the simulation, several `.png` files will be generated, visualizing the following:
+
+*   `optimal_token_supply.png`: Token supply over time with optimal parameters.
+*   `optimal_token_price.png`: Token price over time with optimal parameters.
+*   `optimal_agent_capital.png`: Average agent capital over time with optimal parameters.
+*   `optimal_agent_tokens.png`: Average agent tokens over time with optimal parameters.
+*   `optimal_wealth_distribution.png`: Histograms showing the distribution of capital and tokens among agents at different time points.
+
+These visualizations provide insights into the dynamics of the simulated market and the effects of the optimized bonding curve parameters.
+
+## Contributing
+
+Contributions to this project are welcome! If you have suggestions for improvements, new features, or bug fixes, please feel free to submit a pull request.
+
+## License
+
+MIT-0 License
