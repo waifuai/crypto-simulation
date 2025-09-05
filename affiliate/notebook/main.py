@@ -427,9 +427,10 @@ with strategy.scope():
         logging.info(f"Simulation Completed in: {end_time - start_time:.2f} seconds")
         return token_histories, affiliate_histories
 
+if __name__ == "__main__":
     token_histories, affiliate_histories = run_simulation()
 
-# --- Data Analysis and Visualization ---
+    # --- Data Analysis and Visualization ---
 def analyze_results(token_histories, affiliate_histories):
     logging.info("Analyzing simulation results...")
 
@@ -623,3 +624,151 @@ def plot_wallet_composition_stacked(df_wallet, title="Wallet Composition Over Ti
 
 # Example usage:
 # plot_wallet_composition_stacked(df_wallet_affiliate_0)
+
+# --- Multi-Protocol Integration Hooks ---
+class AffiliateProtocolWrapper:
+    """Wrapper to make Affiliate simulation compatible with multi-protocol orchestrator"""
+
+    def __init__(self):
+        self.tokens = None
+        self.affiliates = None
+        self.step_count = 0
+
+    def initialize(self):
+        """Initialize the protocol state"""
+        with strategy.scope():
+            token_function_indices = np.random.choice(
+                len(bonding_curve_functions), size=NUM_TOKENS
+            )
+            self.tokens = [
+                Token(
+                    f"Token_{i}",
+                    INITIAL_SUPPLY,
+                    INITIAL_PRICE,
+                    bonding_curve_functions[token_function_indices[i]],
+                )
+                for i in range(NUM_TOKENS)
+            ]
+
+            self.affiliates = [Affiliate(i, INITIAL_COMMISSION_RATE, i < (NUM_AFFILIATES // 5)) for i in range(NUM_AFFILIATES)]
+
+    def run_step(self, step_num):
+        """Run one simulation step"""
+        self.step_count = step_num
+        self.token_simulation_step(step_num)
+        self.affiliate_simulation_step(step_num)
+
+    def token_simulation_step(self, step):
+        logging.debug(f"Starting token simulation step: {step}")
+        for affiliate in self.affiliates:
+            num_transactions = np.random.randint(1, 3) if not affiliate.is_whale else np.random.randint(0, 2)
+
+            for _ in range(num_transactions):
+                random_token_index = np.random.randint(NUM_TOKENS)
+                token = self.tokens[random_token_index]
+
+                if affiliate.is_whale and affiliate.whale_investment_capacity > 0:
+                    invest_amount = affiliate.whale_investment_capacity * np.random.uniform(0.1, 0.4)
+                else:
+                    invest_amount = INITIAL_TOKEN_INVESTMENT + (np.random.rand(1)[0] * 5)
+
+                token_price = token.price.numpy()
+                if token_price > 0:
+                    tokens_to_trade = invest_amount / token_price
+                else:
+                    continue
+
+                if np.random.rand() < 0.6:
+                    cost = tokens_to_trade * token_price
+                    if affiliate.base_currency_balance.numpy() >= cost:
+                        token.buy(tf.cast(tokens_to_trade, dtype=tf.float32))
+                        affiliate.base_currency_balance.assign_sub(tf.cast(cost, dtype=tf.float32))
+                        affiliate.wallet[token.name].assign_add(tf.cast(tokens_to_trade, dtype=tf.float32))
+                else:
+                    tokens_available = affiliate.wallet[token.name].numpy()
+                    tokens_to_sell = min(tokens_to_trade, tokens_available)
+                    if tokens_to_sell > 0:
+                        sale_proceeds = token.sell(tf.cast(tokens_to_sell, dtype=tf.float32)) * tokens_to_sell
+                        affiliate.wallet[token.name].assign_sub(tf.cast(tokens_to_sell, dtype=tf.float32))
+                        affiliate.base_currency_balance.assign_add(tf.cast(sale_proceeds, dtype=tf.float32))
+
+                affiliate.recent_investment.append(invest_amount)
+                if len(affiliate.recent_investment) > MOVING_AVERAGE_WINDOW:
+                    affiliate.recent_investment.pop(0)
+
+        for i, token in enumerate(self.tokens):
+            if step % bonding_curve_change_intervals[i] == 0:
+                token.change_bonding_curve()
+            if step % BONDING_CURVE_PARAM_CHANGE_INTERVAL == 0:
+                token.change_bonding_curve_parameters()
+
+    def affiliate_simulation_step(self, step):
+        for affiliate in self.affiliates:
+            for token_name in list(affiliate.wallet.keys()):
+                if affiliate.wallet[token_name].numpy() > 0 and np.random.rand() < 0.05:
+                    tokens_to_sell_percentage = np.random.rand() * 0.05
+                    tokens_to_sell = affiliate.wallet[token_name].numpy() * tokens_to_sell_percentage
+
+                    for token in self.tokens:
+                        if token.name == token_name:
+                            sale_proceeds = token.sell(tf.cast(tokens_to_sell, dtype=tf.float32)) * token.price.numpy()
+                            affiliate.wallet[token_name].assign_sub(tf.cast(tokens_to_sell, dtype=tf.float32))
+                            affiliate.base_currency_balance.assign_add(tf.cast(sale_proceeds, dtype=tf.float32))
+                            break
+
+            affiliate.earnings_history.append(affiliate.total_earned.numpy())
+            affiliate.commission_rate_history.append(affiliate.commission_rate.numpy())
+            affiliate.adjust_commission_dynamically(step)
+
+    def export_state(self):
+        """Export current state for multi-protocol sharing"""
+        prices = {token.name: token.price.numpy() for token in self.tokens}
+        supplies = {token.name: token.supply.numpy() for token in self.tokens}
+        affiliate_balances = {'affiliate_{}'.format(aff.affiliate_id): aff.base_currency_balance.numpy()
+                             for aff in self.affiliates}
+        return {
+            'prices': prices,
+            'supplies': supplies,
+            'affiliate_balances': affiliate_balances,
+            'tvl': sum(supplies.values())
+        }
+
+    def accept_update(self, update):
+        """Accept external updates (e.g., from bridges or arbitrage)"""
+        if 'transfer' in update:
+            # Handle token transfers from other protocols
+            transfer = update['transfer']
+            agent_id = transfer.get('agent_id')
+            amount = transfer.get('amount')
+            token_name = transfer.get('token_name', 'Token_0')
+
+            for aff in self.affiliates:
+                if aff.affiliate_id == int(agent_id):
+                    if token_name in aff.wallet:
+                        aff.wallet[token_name].assign_add(tf.cast(amount, dtype=tf.float32))
+                        aff.total_earned.assign_add(tf.cast(amount, dtype=tf.float32))
+                    break
+
+    def get_final_results(self):
+        """Get final results for analysis"""
+        token_histories = {
+            token.name: {
+                "price": token.price_history,
+                "supply": token.supply_history
+            }
+            for token in self.tokens
+        }
+        affiliate_histories = {
+            aff.affiliate_id: {
+                "balance": aff.base_currency_balance.numpy(),
+                "commission_rate": aff.commission_rate_history
+            }
+            for aff in self.affiliates
+        }
+        return {
+            'token_histories': token_histories,
+            'affiliate_histories': affiliate_histories,
+            'total_tvl': sum(token.supply.numpy() for token in self.tokens),
+            'avg_affiliate_balance': np.mean([aff.base_currency_balance.numpy() for aff in self.affiliates]),
+            'duration': self.step_count
+        }

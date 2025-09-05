@@ -13,13 +13,14 @@ This repository provides a suite of simulation systems designed to model, analyz
 
 ## Overview of Simulation Systems
 
-This suite contains five distinct simulation systems:
+This suite contains six distinct simulation systems:
 
 1.  **Affiliate Network Simulation (`affiliate/`)**
 2.  **Airdrop Strategy Engine (`airdrop/`)**
 3.  **Bonding Curve Laboratory (`bonding-curve/`)**
 4.  **Model Context Protocol Simulation (`mcp/`)**
 5.  **Governance and DAO Simulation (`governance-dao/`)**
+6.  **Multi-Protocol Ecosystem Simulator (`multi-protocol/`)**
 
 Each system addresses different facets of crypto-economic design and analysis.
 
@@ -173,6 +174,40 @@ python main.py
 
 ---
 
+## 6. Multi-Protocol Ecosystem Simulator (`multi-protocol/`)
+
+*   **[Detailed Documentation](multi-protocol/README.md)**
+*   **Core Mechanism:** Cross-protocol interactions with bridges, arbitrage, and capital flows. Simulates interconnected DeFi ecosystems with protocol competition, shared agents, and emergent dynamics.
+*   **Key Agents:** Cross-chain arbitrageurs, capital flight agents, multi-protocol yield optimizers.
+*   **Outputs:** Capital flows, TVL dominance, arbitrage profits, bridge security metrics (`multi-protocol/output.json`).
+
+### Key Features:
+- Unified orchestration of multiple protocols
+- Bridge mechanisms with fees/delays/risks
+- Cross-protocol price synchronization
+- Emergent competition (protocol dominance, collapses)
+- Shared agent pools and message bus
+
+```python
+# Example: Run Affiliate and DeFi protocols together
+from multi_protocol.orchestrator import run_multi_protocol_simulation
+
+protocols = {
+    'affiliate': AffiliateProtocolWrapper(),
+    'defi': DeFiProtocolWrapper()
+}
+
+results = run_multi_protocol_simulation(protocols, num_steps=100)
+```
+
+### Execution:
+```bash
+cd multi-protocol
+python example_scenario.py  # Basic demo with Affiliate + DeFi
+```
+
+---
+
 ## Unified Installation
 
 Follow these steps to set up the environment and install dependencies for all simulation systems.
@@ -190,6 +225,7 @@ pip install --user -r affiliate/requirements.txt
 pip install --user -r airdrop/requirements.txt
 pip install --user -r bonding-curve/requirements.txt
 pip install --user -r mcp/requirements.txt
+# Multi-protocol: Uses same dependencies as constituent systems
 ```
 *Note: If using a virtual environment, the `--user` flag is typically not needed.*
 
