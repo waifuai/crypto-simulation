@@ -13,12 +13,13 @@ This repository provides a suite of simulation systems designed to model, analyz
 
 ## Overview of Simulation Systems
 
-This suite contains four distinct simulation systems:
+This suite contains five distinct simulation systems:
 
 1.  **Affiliate Network Simulation (`affiliate/`)**
 2.  **Airdrop Strategy Engine (`airdrop/`)**
 3.  **Bonding Curve Laboratory (`bonding-curve/`)**
 4.  **Model Context Protocol Simulation (`mcp/`)**
+5.  **Governance and DAO Simulation (`governance-dao/`)**
 
 Each system addresses different facets of crypto-economic design and analysis.
 
@@ -146,6 +147,28 @@ python main.py --curve_type sigmoid --optimize_params
 cd mcp
 # Example: python main.py --num_clients 50 --num_servers 5
 python main.py # <-- Add relevant arguments for MCP simulation
+```
+
+---
+
+## 5. Governance and DAO Simulation (`governance-dao/`)
+
+*   **[Detailed Documentation](governance-dao/README.md)**
+*   **Core Mechanism:** Token-based governance simulation modeling DAO decision-making. Simulates voters submitting proposals, casting votes, and treasury allocations across different voting mechanisms (simple, quadratic, delegation).
+*   **Key Agents:** Voters (holders casting votes), Proposal Submitters, Treasury Managers.
+*   **Outputs:** Voter turnout rates, proposal success metrics, Gini coefficient evolution, treasury trends across voting mechanisms (`governance-dao/output.txt`).
+
+### Key Features:
+- Multiple voting mechanisms: Simple (1 vote per token), Quadratic (diminishing returns), Delegation (representatives)
+- Treasury management with fund allocation
+- Whale voter influence modeling
+- Cross-system integration with other simulations
+- Participation rate and inequality tracking
+
+### Execution:
+```bash
+cd governance-dao/notebook
+python main.py
 ```
 
 ---
