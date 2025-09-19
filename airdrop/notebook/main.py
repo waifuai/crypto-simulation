@@ -1,3 +1,20 @@
+"""
+Airdrop Strategy Simulation and Analysis System
+
+This file implements a comprehensive simulation framework for testing and analyzing
+different cryptocurrency airdrop strategies and their impact on token economics.
+
+Key Features:
+1. Multiple Airdrop Types: Supports lottery, uniform, and tiered distribution methods
+2. User Archetypes: Models different user behaviors (speculators, hodlers, airdrop hunters, active users)
+3. Dynamic Vesting: Implements various vesting schedules including dynamic price-based and activity-based vesting
+4. Market Simulation: Models token price movements, supply dynamics, and user trading behavior
+5. Strategy Optimization: Tests multiple parameter combinations to find optimal airdrop configurations
+
+The simulation runs extensive parameter sweeps to evaluate how different airdrop strategies
+affect token price stability, user engagement, and overall market health. Results include
+comprehensive analysis of price trajectories, supply dynamics, and user behavior patterns.
+"""
 import numpy as np
 import time
 import pandas as pd

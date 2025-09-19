@@ -1,3 +1,25 @@
+"""
+Comprehensive Affiliate Marketing Simulation System
+
+This file implements a sophisticated multi-agent simulation of an affiliate marketing system
+for cryptocurrency tokens. The simulation models:
+
+1. Token Trading Dynamics: Multiple tokens with different bonding curve functions
+   (linear, exponential, sigmoid, root, inverse) that determine token pricing
+2. Affiliate Network: Agents that participate in affiliate programs with dynamic commission rates
+3. Market Interactions: Buy/sell transactions, price discovery, and supply dynamics
+4. Advanced Features:
+   - Dynamic commission adjustment based on affiliate performance
+   - Whale vs regular affiliate distinction
+   - TensorFlow-powered price calculations
+   - Comprehensive logging and visualization
+   - Moving averages for price stability
+   - Parameter randomization for realistic market conditions
+
+The simulation runs for thousands of steps, generating realistic token price movements,
+affiliate earnings, and market behavior patterns that can be analyzed for optimal
+system design and parameter tuning.
+"""
 import time
 import logging
 import pandas as pd

@@ -1,3 +1,34 @@
+"""
+Comprehensive DeFi Ecosystem Simulation
+
+This file implements a sophisticated multi-protocol DeFi simulation that models the interactions
+between various decentralized finance primitives and different types of market participants.
+
+Key Features:
+1. Multi-Protocol DeFi Stack:
+   - Automated Market Maker (AMM) liquidity pools with impermanent loss calculations
+   - Token staking pools with reward distribution mechanisms
+   - Decentralized lending protocol with collateralization and liquidation logic
+
+2. Agent Archetypes:
+   - Yield Farmers: Optimize returns across different protocols
+   - Arbitrageurs: Exploit price differences between protocols and external markets
+   - Leveraged Traders: Use borrowed capital for amplified trading strategies
+
+3. Advanced Economic Modeling:
+   - Dynamic APY calculations and yield optimization
+   - Impermanent loss estimation and risk assessment
+   - Collateral ratio monitoring and liquidation mechanics
+   - Gas fee consideration in strategy optimization
+
+4. Cross-Protocol Integration:
+   - Total Value Locked (TVL) calculations across all protocols
+   - Inter-protocol arbitrage opportunities
+   - Comprehensive risk management and bankruptcy modeling
+
+The simulation provides detailed analysis of DeFi ecosystem dynamics, protocol efficiency,
+and user behavior patterns under various market conditions.
+"""
 import numpy as np
 import time
 import random

@@ -1,3 +1,21 @@
+"""
+Bonding Curve Optimization and Agent-Based Simulation System
+
+This file implements an advanced optimization framework for bonding curve mechanisms
+used in cryptocurrency token pricing. The system uses agent-based modeling to simulate
+realistic market conditions and optimize curve parameters.
+
+Key Components:
+1. Multiple Curve Types: Linear, exponential, sigmoid, and multi-segment bonding curves
+2. Agent-Based Trading: Autonomous agents with memory, trend-following behavior, and risk management
+3. Parameter Optimization: Automated parameter search to minimize price volatility and maximize stability
+4. Market Simulation: Realistic trading patterns with buy/sell pressure, fees, and supply dynamics
+5. Comprehensive Analysis: Wealth distribution analysis, price stability metrics, and performance visualization
+
+The simulation optimizes bonding curve parameters through iterative testing, finding configurations
+that minimize price volatility while maintaining healthy trading dynamics. Results include detailed
+performance metrics and visualizations of token economics under different curve configurations.
+"""
 import tensorflow as tf
 import numpy as np
 import time

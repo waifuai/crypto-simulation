@@ -1,3 +1,36 @@
+"""
+Multi-Agent Resource Allocation and Economic Simulation System
+
+This file implements a sophisticated multi-agent simulation of resource allocation
+in a shared economic environment, modeling complex interactions between agents,
+resources, and economic policies.
+
+Key Components:
+1. Agent-Based Economics:
+   - Autonomous agents with individual resource needs and preferences
+   - Dynamic income generation and expense modeling
+   - Bankruptcy and wealth redistribution mechanisms
+
+2. Resource Management:
+   - Dynamic resource pricing based on supply/demand
+   - Resource capacity management and regeneration
+   - Allocation priority and scarcity modeling
+
+3. Economic Policy Simulation:
+   - Progressive taxation and wealth redistribution
+   - Parameter experimentation (elasticity, regeneration rates, tax rates)
+   - Gini coefficient calculation for inequality measurement
+
+4. Market Dynamics:
+   - Price discovery through agent demand/supply interactions
+   - Resource capacity adjustment based on economic output
+   - Adaptive agent behavior and preference evolution
+
+The simulation enables extensive parameter experimentation to understand how different
+economic policies affect wealth distribution, resource efficiency, and system stability.
+Results include comprehensive analysis of economic inequality, resource utilization,
+and agent welfare under various policy configurations.
+"""
 import numpy as np
 import time
 import random

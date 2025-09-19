@@ -1,3 +1,35 @@
+"""
+DAO Governance Simulation and Voting Mechanism Analysis
+
+This file implements a comprehensive simulation framework for analyzing different
+Decentralized Autonomous Organization (DAO) governance mechanisms and voting systems.
+
+Key Features:
+1. Multiple Voting Mechanisms:
+   - Simple token-weighted voting
+   - Quadratic voting for more democratic outcomes
+   - Delegation-based voting for scalability
+
+2. Voter Behavior Modeling:
+   - Different voter archetypes based on token holdings
+   - Whale vs retail participant dynamics
+   - Participation rate modeling and engagement analysis
+
+3. Proposal System:
+   - Dynamic proposal generation across different systems (MCP, bonding curves, etc.)
+   - Parameter adjustment and fund allocation proposals
+   - Treasury management and fund allocation tracking
+
+4. Comprehensive Analytics:
+   - Voter participation analysis and turnout metrics
+   - Wealth inequality measurement (Gini coefficient)
+   - Proposal success rates and voting power distribution
+   - Cross-mechanism comparison and effectiveness analysis
+
+The simulation integrates with external protocol data (affiliate systems) to create
+realistic governance scenarios and analyzes how different voting mechanisms affect
+DAO decision-making quality and participant engagement.
+"""
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd

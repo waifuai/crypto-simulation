@@ -1,3 +1,21 @@
+"""
+Example Scenario: Basic Multi-Protocol Simulation
+
+This file demonstrates how to run multiple cryptocurrency protocols simultaneously
+using the unified orchestrator framework. It provides a practical example of
+inter-protocol integration and ecosystem simulation.
+
+Key Features:
+1. Multi-Protocol Execution: Shows how to run affiliate and DeFi protocols in parallel
+2. Simplified Protocol Wrappers: Demonstrates minimal protocol implementations for testing
+3. Orchestrator Integration: Uses the main orchestrator to manage protocol interactions
+4. Results Analysis: Provides basic analysis and visualization of simulation outcomes
+5. Extensibility Framework: Shows how to add new protocols and bridge configurations
+
+The example serves as a starting point for building more complex multi-protocol
+simulations, demonstrating the basic patterns for protocol integration, state sharing,
+and cross-protocol analysis.
+"""
 #!/usr/bin/env python3
 """
 Example Scenario: Basic Multi-Protocol Simulation

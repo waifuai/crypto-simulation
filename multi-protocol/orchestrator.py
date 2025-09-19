@@ -1,3 +1,30 @@
+"""
+Multi-Protocol Orchestrator and Simulation Framework
+
+This file implements the core orchestration system for running multiple cryptocurrency
+protocols simultaneously within a unified simulation environment. It provides the
+infrastructure for complex ecosystem analysis and inter-protocol interactions.
+
+Key Components:
+1. Shared Ecosystem State: Global state management across all protocols including
+   price discovery, TVL calculations, and protocol-specific states
+
+2. Bridge Management: Handles inter-protocol communication, asset transfers,
+   and cross-protocol arbitrage with configurable fees, delays, and failure rates
+
+3. Parallel Protocol Execution: Thread-based protocol execution allowing for
+   realistic concurrent operations and timing considerations
+
+4. Inter-Protocol Communication: Message bus system for protocols to share
+   information and coordinate actions
+
+5. Comprehensive Results Aggregation: Collects and analyzes results from all
+   protocols for ecosystem-wide insights
+
+The orchestrator enables researchers to study complex interactions between
+different DeFi protocols, test cross-protocol strategies, and analyze
+ecosystem-wide emergent behaviors under various market conditions.
+"""
 import numpy as np
 import threading
 import time
